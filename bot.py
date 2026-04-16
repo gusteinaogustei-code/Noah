@@ -65,6 +65,13 @@ def get_system_prompt(user_id: int) -> str:
     except Exception:
         pass
     return False
+        if os.path.exists(ARQUIVO_ANIVERSARIO):
+            with open(ARQUIVO_ANIVERSARIO, "r") as f:
+                salvo = f.read().strip()
+            return salvo == hoje.isoformat()
+    except Exception:
+        pass
+    return False
 
 
 def salvar_anuncio_hoje(hoje: date):
