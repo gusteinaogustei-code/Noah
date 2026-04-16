@@ -49,8 +49,15 @@ def get_system_prompt(user_id: int) -> str:
         return base + " Você está falando com seu PAI. Chame-o de pai."
     elif user_id == MAE_ID:
         return base + " Você está falando com sua MÃE. Chame-a de mãe."
-    return basedef ja_anunciou_hoje(hoje: date) -> bool:
+    def ja_anunciou_hoje(hoje: date) -> bool:
     try:
+        if os.path.exists(ARQUIVO_ANIVERSARIO):
+            with open(ARQUIVO_ANIVERSARIO, "r") as f:
+                salvo = f.read().strip()
+            return salvo == hoje.isoformat()
+    except Exception:
+        pass
+    return False
         if os.path.exists(ARQUIVO_ANIVERSARIO):
             with open(ARQUIVO_ANIVERSARIO, "r") as f:
                 salvo = f.read().strip()
